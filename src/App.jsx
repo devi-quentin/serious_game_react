@@ -1,34 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Game from "./components/Game";
+import Home from "./components/Home";
+import { Storage } from "./components/store";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [questions, setQuestions] = useState([]);
+
+  const getAPI = async () => {
+    let rep = await fetch(
+      "https://killer-cepegra.xyz/cockpit-ingrwf10/api/content/items/questions"
+    );
+    setQuestions(await rep.json());
+  };
+
+  useEffect(() => {
+    getAPI();
+  }, []);
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <BrowserRouter>
+        <Storage value={{ questions: questions }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/game" element={<Game />} />
+          </Routes>
+        </Storage>
+      </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap')
+
+*
+    box-sizing: border-box
+    margin: 0
+    padding: 0
+
+html
+    font-family: "Poppins"
+
+.App 
+    display: flex
+    flex-direction: column
+    width: 100vw
+    height: 100vh
+    font-family: 'Poppins'
+    padding: 1rem
+
+main 
+    display: flex
+    gap: 2rem
+    flex-grow: 1
+
+    > div
+        width: 50%
+
+.board 
+    display: grid
+    grid-template-columns: repeat(10, 1fr)
+    width: fit-content
+    gap: 1rem
+
+.cell
+    display: flex
+    justify-content: center
+    align-items: center
+    position: relative
+    border: 1px solid #aaa
+    width: 4rem
+    aspect-ratio: 1
+    font-size: 1rem
+
+    &_number
+        position: absolute
+        display: flex
+        justify-content: center
+        align-items: center
+        top: 0
+        left: 50%
+        transform: translate(-50%, -50%)
+        width: 1.8rem
+        border-radius: 50%
+        aspect-ratio: 1
+        border: 1px solid #aaa
+        background-color: #fff
+
+    &_player
+        width: 1rem
+        aspect-ratio: 1
+        border: 2px solid red
+        border-radius: 50%
+
+
