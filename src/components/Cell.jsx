@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const Cell = ({ question }) => {
   // INIT
@@ -33,9 +33,13 @@ const Cell = ({ question }) => {
     setColor(question.theme);
   });
 
+  const myRef = useRef();
+  // const [offsetPos, setOffsetPos] = [myRef.current.offsetLeft, myRef.current.offsetTop]
+  // console.log(offsetPos)
+
   // RENDER
   return (
-    <div className={themeClass + " cell"}>
+    <div className={themeClass + " cell"} id={"cell_"+question.number} ref={myRef}>
       <div className="cell_number">{question.number}</div>
       {question.challenge ? <p>?</p> : ""}
     </div>
