@@ -1,5 +1,9 @@
+import { useContext } from "react";
+import { Ctx } from "./store";
+
 const Question = ({ q }) => {
-  // INIT
+  // INIT  
+  const STORE = useContext(Ctx);
 
   // REACTION
   const DisplayQuestion = () => {
@@ -17,7 +21,7 @@ const Question = ({ q }) => {
         </>
       );
     } else {
-      return <></>;
+      return <h2>Lancer le dé pour commencer</h2>;
     }
   };
 
@@ -69,18 +73,33 @@ const Question = ({ q }) => {
     e.preventDefault()
     // Récupération des checkbox checked dans un array
     const answers = [...e.target.elements.reponses].map(inpt => inpt.checked && inpt.value).filter((inpt => inpt !== false))
-    console.log("Valid answers", q.response.validAnswers)
+    console.log("Bonnes réponses =>", q.response.validAnswers)
 
     // Vérification que les réponses sont valides
     let correct = false
-    q.response.validAnswers.forEach((va, i) => {
-      if (va == answers[i]) correct = true
-      else correct = false
+    q.response.validAnswers.every((va, i) => {
+      if (va == answers[i]) {
+        correct = true
+        return true
+      }
+      else {
+        correct = false
+        return false
+      }
     });
 
     // Affichage si bonne réponse ou non
-    if (correct) console.log("😀")
-    else console.log("😭")
+    if (correct) {
+      const playersTMP = [...STORE.players]
+      playersTMP[STORE.currentPlayerId].points++
+      STORE.setPlayers([...playersTMP])
+      STORE.nextPlayer()
+      console.log("😀 Bonne réponse. Joueur suivant")
+    }
+    else {
+      STORE.nextPlayer()
+      console.log("😭 Mauvaise réponse. Joueur suivant")
+    }
   }
 
   // RENDER

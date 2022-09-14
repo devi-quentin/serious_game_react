@@ -20,7 +20,7 @@ const Game = () => {
         </div>
       </main>
       <Dice />
-      <footer>Joueur actuel : {STORE.currentPlayerId} [case {STORE.players[STORE.currentPlayerId].position} avec {STORE.players[STORE.currentPlayerId].points} points]</footer>
+      <footer>Joueur {STORE.currentPlayerId+1} {STORE.players[STORE.currentPlayerId].name} | Est à la case {STORE.players[STORE.currentPlayerId].position} avec {STORE.players[STORE.currentPlayerId].points} points</footer>
     </>
   );
 };

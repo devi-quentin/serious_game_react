@@ -29,15 +29,17 @@ const Dice = () => {
   const movePlayer = (n) => {
     const playerTMP = STORE.players
 
-    if (n <= 4) playerTMP[STORE.currentPlayerId].position += n
+    if (n <= 4) {
+      playerTMP[STORE.currentPlayerId].position += n
+      console.log(`Joueur ${STORE.currentPlayerId} avance de ${n} cases`)
+    }
     else if (n === 5) {}
-    else {}
-
-    
+    else {
+      STORE.nextPlayer()
+    }    
 
     STORE.setPlayers([...playerTMP])
 
-    console.log("Move", n)
   }
 
   const DisplayDice = () => {
