@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap')
+@import 'includes/_cell'
+
+*
+    box-sizing: border-box
+    margin: 0
+    padding: 0
+
+html
+    font-family: "Poppins"
+    background-color: #f4f4f4
+    color: #222
+
+.App 
+    display: flex
+    flex-direction: column
+    width: 100vw
+    height: 100vh
+    font-family: 'Poppins'
+    padding: 1rem
+
+main 
+    display: flex
+    gap: 2rem
+    flex-grow: 1
+
+    > div
+        width: auto
+
+.board 
+    display: grid
+    grid-template-columns: repeat(11, 1fr)
+    width: fit-content
+    gap: 1rem
+
+footer
+    font-family: "Courier"
+
+.answerForm
+    &_answer
+        margin-bottom: .5rem
+
+button, input, select
+    width: fit-content
+    max-width: 20rem
+    padding: 0.3rem 1rem
+
+input[type="radio"], input[type="checkbox"]
+    margin-right: 1rem
+
+section.form
+    padding-top: 1rem

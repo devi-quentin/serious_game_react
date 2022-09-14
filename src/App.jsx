@@ -6,6 +6,12 @@ import { Storage } from "./components/store";
 
 function App() {
   const [questions, setQuestions] = useState([]);
+  const [currentPlayerId, setCurrentPlayerId] = useState(0);
+  const [players, setPlayers] = useState([
+    { name: "Quentin", points: 0, position: 0 },
+    { name: "Harry", points: 0, position: 3 },
+    { name: "Vincent", points: 0, position: 1 },
+  ]);
 
   const getAPI = async () => {
     let rep = await fetch(
@@ -21,7 +27,15 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Storage value={{ questions: questions }}>
+        <Storage
+          value={{
+            questions: questions,
+            players: players,
+            setPlayers: setPlayers,
+            currentPlayerId: currentPlayerId,
+            setCurrentPlayerId: setCurrentPlayerId,
+          }}
+        >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/game" element={<Game />} />

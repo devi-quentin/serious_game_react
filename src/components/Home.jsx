@@ -1,4 +1,6 @@
 const Home = () => {
+
+    //RENDER
     return <h1>Ecran home</h1>
 }
 

@@ -1,35 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap')
-
-*
-    box-sizing: border-box
-    margin: 0
-    padding: 0
-
-html
-    font-family: "Poppins"
-
-.App 
-    display: flex
-    flex-direction: column
-    width: 100vw
-    height: 100vh
-    font-family: 'Poppins'
-    padding: 1rem
-
-main 
-    display: flex
-    gap: 2rem
-    flex-grow: 1
-
-    > div
-        width: 50%
-
-.board 
-    display: grid
-    grid-template-columns: repeat(10, 1fr)
-    width: fit-content
-    gap: 1rem
-
 .cell
     display: flex
     justify-content: center
@@ -39,7 +7,9 @@ main
     width: 4rem
     aspect-ratio: 1
     font-size: 1rem
+    background-color: #fff
 
+    // Numéro de la case
     &_number
         position: absolute
         display: flex
@@ -54,10 +24,19 @@ main
         border: 1px solid #aaa
         background-color: #fff
 
+    // Pion du joueur
     &_player
         width: 1rem
         aspect-ratio: 1
         border: 2px solid red
         border-radius: 50%
 
-
+    // Couleur du numéro de la case (theme)
+    &.theorie .cell_number
+        background-color: #adadad
+    &.economique .cell_number
+        background-color: #acfca1
+    &.publique .cell_number
+        background-color: #a1bbfc
+    &.domestique .cell_number
+        background-color: #fb8b58
