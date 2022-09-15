@@ -69,7 +69,7 @@ const Cell = ({ question, players = null, casesVisited = null }) => {
   return (
     <div className={themeClass + " cell"} id={"cell_" + question.number}>
       <div className="cell_number">{question.number}</div>
-      <div className={"cell_player _" + playerPion}></div>
+      <div className={"cell_player _" + playerPion}>{playerPion}</div>
       {question.challenge ? <div className={"cell_challenge"}>?</div> : ""}
       <div className={"cell_visited " + (visited ? "visited" : "")}>👣</div>
     </div>

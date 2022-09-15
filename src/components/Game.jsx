@@ -22,7 +22,12 @@ const Game = () => {
           <Question q={STORE.questions[STORE.players[STORE.currentPlayerId].position - 1]}/>
         </div>
       </main>
-      <footer>Joueur {STORE.currentPlayerId+1} {STORE.players[STORE.currentPlayerId].name} | Est à la case {STORE.players[STORE.currentPlayerId].position} avec {STORE.players[STORE.currentPlayerId].points} points</footer>
+      <footer>
+        <p>Au tour de {STORE.players[STORE.currentPlayerId].name} ({STORE.currentPlayerId+1})</p>
+        {STORE.players.map((p, i) => (
+          <span>Joueur {i+1} {p.name} [{p.points} points] | </span>
+        ))}
+      </footer>
     </>
   );
 };

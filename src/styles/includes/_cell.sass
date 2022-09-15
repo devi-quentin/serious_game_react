@@ -34,13 +34,15 @@
         transform: translate(-50%, 50%)
         width: 1.5rem
         aspect-ratio: 1
-        border: 0px solid #aaa
+        border: 1px solid #aaa
         background-color: #f4f4f4
+        border-radius: 50%
 
     &_visited
         position: absolute
         font-size: 1.2rem
         display: none
+        opacity: .5
         z-index: -1
 
         &.visited
@@ -48,10 +50,16 @@
 
     // Pion du joueur
     &_player
+        display: flex
+        justify-content: center
+        align-items: center
         width: 1.5rem
+        font-size: .8rem
         aspect-ratio: 1
-        border-radius: 50% 50% 50% 0
-        transform: rotate(-45deg)
+        border-radius: 50%
+        outline: .3rem solid #ccc
+        color: #f4f4f4
+        font-weight: bold
 
         &._1            
             background-color: green

@@ -14,16 +14,7 @@ const Dice = () => {
   const diceRoll = () => {
     const n = rand();
     setDiceNumber(n);
-
-    // Faire avancer le joueur
-    // Vérification si la case cible est disponible. Si pas: +1. Si pas: -1. Sinon on passe au joueur suivant
     movePlayer(n)
-    // (Composant Cell)
-    // On rend la précédante case indisponible (piétinée)
-
-    // (Composant Question)
-    // Affichage de la question correspondant à la nouvelle position du joueur actuel
-    // Lancement du chrono de la question
   };
 
   const nextFreeCase = (playerTMP, n) => {
@@ -32,14 +23,11 @@ const Dice = () => {
 
     // Ci la case cible est libre
     if (!STORE.casesVisited.includes(playerTMP[STORE.currentPlayerId].position + n)) {
-      console.log(`Case cible ${playerTMP[STORE.currentPlayerId].position + n} est libre !`)
     }
     else if (!STORE.casesVisited.includes(playerTMP[STORE.currentPlayerId].position + n + 1)) {
-      console.log(`Case cible ${playerTMP[STORE.currentPlayerId].position + n} + 1 est libre !`)
       n++
     }
     else if (!STORE.casesVisited.includes(playerTMP[STORE.currentPlayerId].position + n - 1)) {
-      console.log(`Case cible ${playerTMP[STORE.currentPlayerId].position + n} - 1 est libre !`)
       n--
     }
     else {        

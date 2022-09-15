@@ -56,9 +56,36 @@ const Question = ({ q }) => {
     if (qtype === "challenge") {
       return (
         <form>
-          <button id="valid" onClick={checkAnswers}>Réponse valide</button>
-          <button id="invalid" onClick={checkAnswers}>Réponse NON valide</button>
+          <button id="valid" onClick={checkAnswers}>
+            Valider la réponse
+          </button>
+          <button id="invalid" onClick={checkAnswers}>
+            Ne pas valider la réponse
+          </button>
         </form>
+      );
+    }
+    if (qtype === "liaison") {
+      return (
+        <>
+          <form onSubmit={checkAnswers}>
+            <ul className="liaisonDropZone">
+              {response.answers1.map((a) => (
+                <li>
+                  {a}
+                  <br />
+                  <select name="" id="">
+                    <option value=""></option>
+                    {response.answers2.sort().map((a) => (
+                      <option value={a}>{a}</option>
+                    ))}
+                  </select>
+                </li>
+              ))}
+            </ul>
+            <button>Valider les réponses</button>
+          </form>
+        </>
       );
     } else {
       return (
@@ -94,7 +121,19 @@ const Question = ({ q }) => {
     }
 
     if (q.qtype === "challenge") {
-      if (e.target.id === "valid") correct = true
+      if (e.target.id === "valid") correct = true;
+    }
+
+    if (q.qtype === "liaison") {
+      correct = true
+      q.response.answers2.every((a, i) => {
+        if (a != e.target[i].value) {
+          console.log(e)
+          console.log(a, "différent de", e.target[i].value)
+          correct = false
+          return false
+        }
+      })
     }
 
     // Affichage si bonne réponse ou non
