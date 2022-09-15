@@ -8,10 +8,15 @@ const Board = () => {
   return (
     <>
       <div className="board">
+        {/* Case de départ */}
         <Cell key={0} question={{ number: "🏁" }} />
+
+        {/* Case 1 à 49 */}
         {STORE.questions.map((q, i) => (
           <Cell key={i} question={q}/>
         ))}
+
+        {/* Case d'arrivée */}
         <Cell key={100} question={{ number: "🚩" }} />
       </div>
     </>
