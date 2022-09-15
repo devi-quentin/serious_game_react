@@ -12,9 +12,11 @@ const Game = () => {
   return (
     <>
       <main>
+        {/* Panneau du plateau, à gauche*/}
         <div className="boardPanel">
           <Board />
         </div>
+        {/* Panneau de la question active, à droite, auquel on passe la question active */}
         <div className="questionPanel">
           <Question q={STORE.questions[STORE.players[STORE.currentPlayerId].position - 1]}/>
         </div>
