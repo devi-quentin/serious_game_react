@@ -6,8 +6,8 @@
     border: 1px solid #aaa
     width: 4rem
     aspect-ratio: 1
-    font-size: 1rem
-    background-color: #fff
+    font-size: .9rem
+    border-radius: .2rem
 
     // Numéro de la case
     &_number
@@ -19,24 +19,60 @@
         left: 50%
         transform: translate(-50%, -50%)
         width: 1.8rem
-        border-radius: 50%
         aspect-ratio: 1
         border: 0px solid #aaa
-        background-color: #fff
+        background-color: #f4f4f4
+
+    // Point d'interrogation pour les cases challenges
+    &_challenge
+        position: absolute
+        display: flex
+        justify-content: center
+        align-items: center
+        bottom: 0px
+        left: 50%
+        transform: translate(-50%, 50%)
+        width: 1.5rem
+        aspect-ratio: 1
+        border: 0px solid #aaa
+        background-color: #f4f4f4
+
+    &_visited
+        position: absolute
+        font-size: 1.2rem
+        display: none
+        z-index: -1
+
+        &.visited
+            display: block
 
     // Pion du joueur
     &_player
-        width: 1rem
+        width: 1.5rem
         aspect-ratio: 1
-        border: 2px solid red
-        border-radius: 50%
+        border-radius: 50% 50% 50% 0
+        transform: rotate(-45deg)
+
+        &._1            
+            background-color: green
+        &._2          
+            background-color: orange
+        &._3          
+            background-color: dodgerblue
+        &._4          
+            background-color: red
+        &._5          
+            background-color: purple
+
+        &._null
+            display: none
 
     // Couleur du numéro de la case (theme)
-    &.theorie .cell_number
-        background-color: #adadad
-    &.economique .cell_number
-        background-color: #82ff71
-    &.publique .cell_number
-        background-color: #a1bbfc
-    &.domestique .cell_number
-        background-color: #fb8b58
+    &.theorie
+        border-color: #adadad
+    &.economique
+        border-color: #3fb64f
+    &.publique
+        border-color: #a1bbfc
+    &.domestique
+        border-color: #fb8b58

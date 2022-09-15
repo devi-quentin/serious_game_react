@@ -26,12 +26,39 @@ const Dice = () => {
     // Lancement du chrono de la question
   };
 
+  const nextFreeCase = (playerTMP, n) => {
+    console.log("Vérification prochaine case")
+    let ok = true
+
+    // Ci la case cible est libre
+    if (!STORE.casesVisited.includes(playerTMP[STORE.currentPlayerId].position + n)) {
+      console.log(`Case cible ${playerTMP[STORE.currentPlayerId].position + n} est libre !`)
+    }
+    else if (!STORE.casesVisited.includes(playerTMP[STORE.currentPlayerId].position + n + 1)) {
+      console.log(`Case cible ${playerTMP[STORE.currentPlayerId].position + n} + 1 est libre !`)
+      n++
+    }
+    else if (!STORE.casesVisited.includes(playerTMP[STORE.currentPlayerId].position + n - 1)) {
+      console.log(`Case cible ${playerTMP[STORE.currentPlayerId].position + n} - 1 est libre !`)
+      n--
+    }
+    else {        
+      console.log(`Aucune cases n'est libre !`)
+      n = 0
+      STORE.nextPlayer()
+    }
+
+    return n
+  }
+
   const movePlayer = (n) => {
     const playerTMP = STORE.players
 
     if (n <= 4) {
-      playerTMP[STORE.currentPlayerId].position += n
-      console.log(`Joueur ${STORE.currentPlayerId} avance de ${n} cases`)
+      // On fait avancer joueur
+      playerTMP[STORE.currentPlayerId].position += nextFreeCase(playerTMP, n)
+      // On marque la case comme visitée
+      STORE.markCaseVisited(playerTMP[STORE.currentPlayerId].position)
     }
     else if (n === 5) {}
     else {
@@ -49,7 +76,7 @@ const Dice = () => {
   };
 
   // RENDER
-  return <button onClick={diceRoll}>Lancer le dé -- {<DisplayDice />}</button>;
+  return <button className="dice" onClick={diceRoll}>{<DisplayDice />}</button>;
 };
 
 export default Dice;

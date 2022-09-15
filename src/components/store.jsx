@@ -9,6 +9,11 @@ const Storage = ({ children }) => {
     { name: "Harry", points: 0, position: 0 },
     { name: "Vincent", points: 0, position: 0 },
   ]);
+  const [casesVisited, setCasesVisited] = useState([])
+
+  const markCaseVisited = (n) => {
+    setCasesVisited([...casesVisited, n])
+  }
 
   const nextPlayer = () => {
     if (currentPlayerId === players.length - 1) {
@@ -26,7 +31,9 @@ const Storage = ({ children }) => {
   };
 
   useEffect(() => {
-    getAPI();
+    getAPI().then(() => {
+      
+    });
   }, []);
 
   return (
@@ -38,6 +45,9 @@ const Storage = ({ children }) => {
         currentPlayerId: currentPlayerId,
         setCurrentPlayerId: setCurrentPlayerId,
         nextPlayer: nextPlayer,
+        casesVisited: casesVisited,
+        setCasesVisited: setCasesVisited,
+        markCaseVisited: markCaseVisited
       }}
     >
       {children}
