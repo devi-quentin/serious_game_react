@@ -11,6 +11,12 @@ const Game = () => {
   //RENDER
   return (
     <>
+      <header>
+        <h1>
+          Au tour de (J{STORE.currentPlayerId + 1}){" "}
+          {STORE.players[STORE.currentPlayerId].name}
+        </h1>
+      </header>
       <main>
         {/* Panneau du plateau, à gauche*/}
         <div className="boardPanel">
@@ -19,13 +25,18 @@ const Game = () => {
         </div>
         {/* Panneau de la question active, à droite, auquel on passe la question active */}
         <div className="questionPanel">
-          <Question q={STORE.questions[STORE.players[STORE.currentPlayerId].position - 1]}/>
+          <Question
+            q={
+              STORE.questions[STORE.players[STORE.currentPlayerId].position - 1]
+            }
+          />
         </div>
       </main>
       <footer>
-        <p>Au tour de {STORE.players[STORE.currentPlayerId].name} ({STORE.currentPlayerId+1})</p>
         {STORE.players.map((p, i) => (
-          <span>Joueur {i+1} {p.name} [{p.points} points] | </span>
+          <span>
+            J{i + 1} {p.name} {p.points}<span class="material-symbols-rounded">egg</span> |{" "}
+          </span>
         ))}
       </footer>
     </>
