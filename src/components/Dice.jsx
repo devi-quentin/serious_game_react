@@ -16,6 +16,7 @@ const Dice = () => {
     console.log("Lancer du dé -> ", n)
     setDiceNumber(n);
     movePlayer(n);
+    if (n !== 6) STORE.setQuestionVisible(true)    
   };
 
   const nextChallengeCase = (currentPosition) => {
@@ -94,7 +95,7 @@ const Dice = () => {
 
   // RENDER
   return (
-    <button className="dice" onClick={diceRoll}>
+    <button className={"dice" + (STORE.questionVisible ? "hidden" : "")} onClick={diceRoll}>
       {<DisplayDice />}
     </button>
   );

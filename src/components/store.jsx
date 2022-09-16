@@ -9,6 +9,7 @@ const Storage = ({ children }) => {
     { name: "Harry", points: 0, position: 0 },
     { name: "Vincent", points: 0, position: 0 },
   ]);
+  const [questionVisible, setQuestionVisible] = useState(false)
 
   const markCaseVisited = (n) => {
     let questionsTMP = [...questions]
@@ -21,6 +22,9 @@ const Storage = ({ children }) => {
     } else {
       setCurrentPlayerId(currentPlayerId + 1);
     }
+    
+    setQuestionVisible(false)
+    
   };
 
   const getAPI = async () => {
@@ -45,7 +49,9 @@ const Storage = ({ children }) => {
         currentPlayerId: currentPlayerId,
         setCurrentPlayerId: setCurrentPlayerId,
         nextPlayer: nextPlayer,
-        markCaseVisited: markCaseVisited
+        markCaseVisited: markCaseVisited,
+        questionVisible: questionVisible,
+        setQuestionVisible: setQuestionVisible
       }}
     >
       {children}

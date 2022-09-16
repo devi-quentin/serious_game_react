@@ -21,10 +21,10 @@ const Game = () => {
         {/* Panneau du plateau, à gauche*/}
         <div className="boardPanel">
           <Board />
-          <Dice />
+          <Dice/>
         </div>
         {/* Panneau de la question active, à droite, auquel on passe la question active */}
-        <div className="questionPanel">
+        <div className={"questionPanel " + (!STORE.questionVisible ? "hidden" : "")}>
           <Question
             q={
               STORE.questions[STORE.players[STORE.currentPlayerId].position - 1]
@@ -35,7 +35,7 @@ const Game = () => {
       <footer>
         {STORE.players.map((p, i) => (
           <span>
-            J{i + 1} {p.name} {p.points}<span class="material-symbols-rounded">egg</span> |{" "}
+            J{i + 1} {p.name} {p.points}<span className="material-symbols-rounded">egg</span> |{" "}
           </span>
         ))}
       </footer>
