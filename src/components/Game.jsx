@@ -40,8 +40,7 @@ const Game = () => {
       <footer>
         {STORE.players.map((p, i) => (
           <span key={i}>
-            J{i + 1} {p.name} {p.points}
-            <span className="material-symbols-rounded">egg</span> |{" "}
+            J{i + 1} {p.name} - {p.points} pts |{" "}
           </span>
         ))}
       </footer>

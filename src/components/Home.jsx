@@ -29,12 +29,12 @@ const Home = () => {
 
     setGoPlay(true)
 
-    return <Navigate to='/game'/>
+    return <Navigate to='/'/>
     
   }
 
   const Redirect = () => {
-    return goPlay ? <Navigate to='/game'/> : ""
+    return goPlay ? <Navigate to='/'/> : ""
   }
 
   //RENDER

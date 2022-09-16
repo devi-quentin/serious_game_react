@@ -6,8 +6,9 @@ const Storage = ({ children }) => {
   const [currentPlayerId, setCurrentPlayerId] = useState(0);
   const [players, setPlayers] = useState([
     { name: "Quentin", points: 0, position: 0 },
-    { name: "Harry", points: 0, position: 0 },
-    { name: "Vincent", points: 0, position: 0 },
+    { name: "Pierre", points: 0, position: 0 },
+    { name: "Olivier", points: 0, position: 0 },
+    { name: "Bernadette", points: 0, position: 0 },
   ]);
   const [questionVisible, setQuestionVisible] = useState(false)
 

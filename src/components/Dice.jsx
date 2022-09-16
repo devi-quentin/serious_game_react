@@ -4,7 +4,7 @@ import { Ctx } from "./store";
 const Dice = () => {
   //
   const STORE = useContext(Ctx);
-  const [diceNumber, setDiceNumber] = useState(0);
+  const [diceNumber, setDiceNumber] = useState("Dé");
 
   // REACTION
   const rand = () => {
@@ -96,8 +96,9 @@ const Dice = () => {
 
   const DisplayDice = () => {
     if (diceNumber <= 4) return diceNumber;
-    if (diceNumber === 5) return "?";
-    if (diceNumber === 6) return "🙁";
+    else if (diceNumber === 5) return "?";
+    else if (diceNumber === 6) return "🙁";
+    else return "Dé"
   };
 
   // RENDER
