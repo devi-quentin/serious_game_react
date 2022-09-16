@@ -95,7 +95,7 @@ const Dice = () => {
 
   // RENDER
   return (
-    <button className={"dice" + (STORE.questionVisible ? "hidden" : "")} onClick={diceRoll}>
+    <button className={"dice " + (STORE.questionVisible ? "hidden" : "")} onClick={diceRoll}>
       {<DisplayDice />}
     </button>
   );
