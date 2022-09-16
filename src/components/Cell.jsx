@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 
-const Cell = ({ question, players = null, casesVisited = null }) => {
+const Cell = ({ question, players = null}) => {
   // INIT
   let [themeClass, setThemeClass] = useState("");
   let [playerPion, setPlayerPion] = useState(null);
@@ -21,20 +21,9 @@ const Cell = ({ question, players = null, casesVisited = null }) => {
     }
   };
 
-  const setCaseVisited = () => {
-    if (casesVisited != null && casesVisited.length >= 1) {
-      casesVisited.forEach((c) => {
-        if (c === question.number) {
-          setVisited(true);
-        }
-      });
-    }
-  };
-
   useEffect(() => {
     setPlayerPion(null);
     playerInCase();
-    setCaseVisited();
   });
 
   const setColor = (theme) => {
@@ -71,7 +60,7 @@ const Cell = ({ question, players = null, casesVisited = null }) => {
       <div className="cell_number">{question.number}</div>
       <div className={"cell_player _" + playerPion}>{playerPion}</div>
       {question.challenge ? <div className={"cell_challenge"}>?</div> : ""}
-      <div className={"cell_visited " + (visited ? "visited" : "")}>👣</div>
+      <div className={"cell_visited " + (question.visited ? "visited" : "")}>👣</div>
     </div>
   );
 };

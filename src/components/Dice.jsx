@@ -13,16 +13,16 @@ const Dice = () => {
 
   const diceRoll = () => {
     const n = rand();
+    console.log("Lancer du dé -> ", n)
     setDiceNumber(n);
     movePlayer(n);
   };
 
   const nextChallengeCase = (currentPosition) => {
     // Récupère les prochaines cases challenges
-    const nextChallengeCases = STORE.questions.filter(q => q.challenge && q.number > currentPosition)
+    const nextChallengeCases = STORE.questions.filter(q => q.challenge && q.number > currentPosition && !q.visited).slice(0, 1)
     
-    console.log(nextChallengeCases)
-    console.log("currentPosition", currentPosition, "->" , nextChallengeCases[0].number)
+    console.log("Case CHALLENGE", nextChallengeCases[0].number, "disponible")
     
     return nextChallengeCases[0].number
   }
@@ -32,22 +32,25 @@ const Dice = () => {
 
     // Ci la case cible n'est pas visitée ET qu'elle n'est pas une case challenge => OK
     if (
-      !STORE.casesVisited.includes(targetPosition) &&
-      STORE.questions[targetPosition - 1].challenge === null
+      !STORE.questions[targetPosition - 1].visited &&
+      !STORE.questions[targetPosition - 1].challenge
     ) {
+      console.log("Case", targetPosition, "disponible")
     }
     // SINON on teste la suivante
     else if (
-      !STORE.casesVisited.includes(targetPosition + 1) &&
-      STORE.questions[targetPosition - 1 + 1].challenge === null
+      !STORE.questions[targetPosition - 1 + 1].visited &&
+      !STORE.questions[targetPosition - 1 + 1].challenge
     ) {
+      console.log("Case", targetPosition, "+ 1 disponible")
       nCases++;
     }
     // SINON on teste la précédente
     else if (
-      !STORE.casesVisited.includes(targetPosition - 1) &&
-      STORE.questions[targetPosition - 1 - 1].challenge === null
+      !STORE.questions[targetPosition - 1 - 1].visited &&
+      !STORE.questions[targetPosition - 1 - 1].challenge
     ) {
+      console.log("Case", targetPosition, "- 1 disponible")
       nCases--;
     }
     // SINON le joueur reste à sa place et on passe au joueur suivant
@@ -73,6 +76,7 @@ const Dice = () => {
     // Si face "CHALLENGE"
     else if (n === 5) {
       playersTMP[STORE.currentPlayerId].position = nextChallengeCase(playersTMP[STORE.currentPlayerId].position)
+      STORE.markCaseVisited(playersTMP[STORE.currentPlayerId].position);
     }
     // Face 6 "☹️", passer son tour
     else {

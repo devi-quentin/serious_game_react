@@ -13,7 +13,7 @@ const Board = () => {
 
         {/* Case 1 à 49 */}
         {STORE.questions.map((q, i) => (
-          <Cell key={i} question={q} players={STORE.players} casesVisited={STORE.casesVisited}/>
+          <Cell key={i} question={q} players={STORE.players}/>
         ))}
 
         {/* Case d'arrivée */}
