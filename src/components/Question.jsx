@@ -21,7 +21,7 @@ const Question = ({ q }) => {
         </>
       );
     } else {
-      return <h2>Lancer le dé pour commencer</h2>;
+      return <h2>Lancez le dé</h2>;
     }
   };
 

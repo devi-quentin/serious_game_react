@@ -14,48 +14,73 @@ const Dice = () => {
   const diceRoll = () => {
     const n = rand();
     setDiceNumber(n);
-    movePlayer(n)
+    movePlayer(n);
   };
 
-  const nextFreeCase = (playerTMP, n) => {
-    console.log("Vérification prochaine case")
-    let ok = true
-
-    // Ci la case cible est libre
-    if (!STORE.casesVisited.includes(playerTMP[STORE.currentPlayerId].position + n)) {
-    }
-    else if (!STORE.casesVisited.includes(playerTMP[STORE.currentPlayerId].position + n + 1)) {
-      n++
-    }
-    else if (!STORE.casesVisited.includes(playerTMP[STORE.currentPlayerId].position + n - 1)) {
-      n--
-    }
-    else {        
-      console.log(`Aucune cases n'est libre !`)
-      n = 0
-      STORE.nextPlayer()
-    }
-
-    return n
+  const nextChallengeCase = (currentPosition) => {
+    // Récupère les prochaines cases challenges
+    const nextChallengeCases = STORE.questions.filter(q => q.challenge && q.number > currentPosition)
+    
+    console.log(nextChallengeCases)
+    console.log("currentPosition", currentPosition, "->" , nextChallengeCases[0].number)
+    
+    return nextChallengeCases[0].number
   }
+
+  const nextFreeCase = (currentPosition, nCases) => {
+    const targetPosition = currentPosition + nCases;
+
+    // Ci la case cible n'est pas visitée ET qu'elle n'est pas une case challenge => OK
+    if (
+      !STORE.casesVisited.includes(targetPosition) &&
+      STORE.questions[targetPosition - 1].challenge === null
+    ) {
+    }
+    // SINON on teste la suivante
+    else if (
+      !STORE.casesVisited.includes(targetPosition + 1) &&
+      STORE.questions[targetPosition - 1 + 1].challenge === null
+    ) {
+      nCases++;
+    }
+    // SINON on teste la précédente
+    else if (
+      !STORE.casesVisited.includes(targetPosition - 1) &&
+      STORE.questions[targetPosition - 1 - 1].challenge === null
+    ) {
+      nCases--;
+    }
+    // SINON le joueur reste à sa place et on passe au joueur suivant
+    else {
+      nCases = 0;
+      STORE.nextPlayer();
+    }
+
+    // On retourn le nombre de case à avancer
+    return nCases;
+  };
 
   const movePlayer = (n) => {
-    const playerTMP = STORE.players
+    const playersTMP = STORE.players;
 
+    // Si le dé affiche 1 à 4
     if (n <= 4) {
-      // On fait avancer joueur
-      playerTMP[STORE.currentPlayerId].position += nextFreeCase(playerTMP, n)
+      // On fait avancer joueur à la prochaine case libre
+      playersTMP[STORE.currentPlayerId].position += nextFreeCase(playersTMP[STORE.currentPlayerId].position, n);
       // On marque la case comme visitée
-      STORE.markCaseVisited(playerTMP[STORE.currentPlayerId].position)
+      STORE.markCaseVisited(playersTMP[STORE.currentPlayerId].position);
     }
-    else if (n === 5) {}
+    // Si face "CHALLENGE"
+    else if (n === 5) {
+      playersTMP[STORE.currentPlayerId].position = nextChallengeCase(playersTMP[STORE.currentPlayerId].position)
+    }
+    // Face 6 "☹️", passer son tour
     else {
-      STORE.nextPlayer()
-    }    
+      STORE.nextPlayer();
+    }
 
-    STORE.setPlayers([...playerTMP])
-
-  }
+    STORE.setPlayers([...playersTMP]);
+  };
 
   const DisplayDice = () => {
     if (diceNumber <= 4) return diceNumber;
@@ -64,7 +89,11 @@ const Dice = () => {
   };
 
   // RENDER
-  return <button className="dice" onClick={diceRoll}>{<DisplayDice />}</button>;
+  return (
+    <button className="dice" onClick={diceRoll}>
+      {<DisplayDice />}
+    </button>
+  );
 };
 
 export default Dice;
