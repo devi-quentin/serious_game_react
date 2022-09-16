@@ -13,17 +13,15 @@ const Dice = () => {
 
   const diceRoll = () => {
     const n = rand();
+    if (n !== 6) STORE.setQuestionVisible(true)    
     console.log("Lancer du dé -> ", n)
     setDiceNumber(n);
     movePlayer(n);
-    if (n !== 6) STORE.setQuestionVisible(true)    
   };
 
   const nextChallengeCase = (currentPosition) => {
     // Récupère les prochaines cases challenges
     const nextChallengeCases = STORE.questions.filter(q => q.challenge && q.number > currentPosition && !q.visited).slice(0, 1)
-    
-    console.log("Case CHALLENGE", nextChallengeCases[0].number, "disponible")
     
     return nextChallengeCases[0].number
   }
@@ -31,33 +29,42 @@ const Dice = () => {
   const nextFreeCase = (currentPosition, nCases) => {
     const targetPosition = currentPosition + nCases;
 
-    // Ci la case cible n'est pas visitée ET qu'elle n'est pas une case challenge => OK
-    if (
-      !STORE.questions[targetPosition - 1].visited &&
-      !STORE.questions[targetPosition - 1].challenge
-    ) {
-      console.log("Case", targetPosition, "disponible")
+    // SI la case cible est dans le plateau
+    if (targetPosition <= STORE.questions.length) {
+      // Si la case cible n'est pas visitée ET qu'elle n'est pas une case challenge => OK
+      if (
+        !STORE.questions[targetPosition - 1].visited &&
+        !STORE.questions[targetPosition - 1].challenge
+      ) {
+        console.log("Case", targetPosition, "disponible")
+      }
+      // SINON on teste la suivante
+      else if (
+        !STORE.questions[targetPosition - 1 + 1].visited &&
+        !STORE.questions[targetPosition - 1 + 1].challenge
+      ) {
+        console.log("Case", targetPosition, "+ 1 disponible")
+        nCases++;
+      }
+      // SINON on teste la précédente
+      else if (
+        !STORE.questions[targetPosition - 1 - 1].visited &&
+        !STORE.questions[targetPosition - 1 - 1].challenge
+      ) {
+        console.log("Case", targetPosition, "- 1 disponible")
+        nCases--;
+      }
+      // SINON le joueur reste à sa place et on passe au joueur suivant
+      else {
+        nCases = 0;
+        STORE.nextPlayer();
+      }
     }
-    // SINON on teste la suivante
-    else if (
-      !STORE.questions[targetPosition - 1 + 1].visited &&
-      !STORE.questions[targetPosition - 1 + 1].challenge
-    ) {
-      console.log("Case", targetPosition, "+ 1 disponible")
-      nCases++;
-    }
-    // SINON on teste la précédente
-    else if (
-      !STORE.questions[targetPosition - 1 - 1].visited &&
-      !STORE.questions[targetPosition - 1 - 1].challenge
-    ) {
-      console.log("Case", targetPosition, "- 1 disponible")
-      nCases--;
-    }
-    // SINON le joueur reste à sa place et on passe au joueur suivant
+    // Si case est en dehors du plateau
     else {
-      nCases = 0;
-      STORE.nextPlayer();
+      console.log("Cases cible ", targetPosition, "est en dehors du plateau", STORE.questions.length)
+      nCases = STORE.questions.length - currentPosition
+      console.log("Le joueur avance de ", nCases, "cases")
     }
 
     // On retourn le nombre de case à avancer
@@ -95,7 +102,7 @@ const Dice = () => {
 
   // RENDER
   return (
-    <button className={"dice " + (STORE.questionVisible ? "hidden" : "")} onClick={diceRoll}>
+    <button className={"dice"} onClick={diceRoll} disabled={(STORE.questionVisible ? true : false)}>
       {<DisplayDice />}
     </button>
   );

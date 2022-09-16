@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import ChronoQuestion from "./ChronoQuestion";
 import { Ctx } from "./store";
 
 const Question = ({ q }) => {
@@ -7,11 +8,12 @@ const Question = ({ q }) => {
 
   // REACTION
   const DisplayQuestion = () => {
-    if (q) {
+    if (q != undefined) {
       return (
         <>
           <p>
-            Q{q.number} - {q.timing} sec - {q.theme}
+            Q{q.number} - <ChronoQuestion initialTimer={q.timing} /> secondes -{" "}
+            {q.theme}
           </p>
           <h2>{q.question}</h2>
           <hr />
@@ -59,6 +61,7 @@ const Question = ({ q }) => {
           <button id="valid" onClick={checkAnswers}>
             Valider la réponse
           </button>
+          <br />
           <button id="invalid" onClick={checkAnswers}>
             Ne pas valider la réponse
           </button>
@@ -78,6 +81,29 @@ const Question = ({ q }) => {
                     <option value=""></option>
                     {response.answers2.sort().map((a) => (
                       <option value={a}>{a}</option>
+                    ))}
+                  </select>
+                </li>
+              ))}
+            </ul>
+            <button>Valider les réponses</button>
+          </form>
+        </>
+      );
+    }
+    if (qtype === "ordre") {
+      return (
+        <>
+          <form onSubmit={checkAnswers}>
+            <ul className="liaisonDropZone">
+              {response.answers.sort().map((a, i) => (
+                <li>
+                  {a}
+                  <br />
+                  <select name="" id="">
+                    <option value=""></option>
+                    {response.answers.map((a, i) => (
+                      <option value={a}>{i+1}</option>
                     ))}
                   </select>
                 </li>
@@ -125,15 +151,15 @@ const Question = ({ q }) => {
     }
 
     if (q.qtype === "liaison") {
-      correct = true
+      correct = true;
       q.response.answers2.every((a, i) => {
         if (a != e.target[i].value) {
-          console.log(e)
-          console.log(a, "différent de", e.target[i].value)
-          correct = false
-          return false
+          console.log(e);
+          console.log(a, "différent de", e.target[i].value);
+          correct = false;
+          return false;
         }
-      })
+      });
     }
 
     // Affichage si bonne réponse ou non

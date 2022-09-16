@@ -17,14 +17,19 @@ const Storage = ({ children }) => {
   }
 
   const nextPlayer = () => {
+    // Joueur suivant
     if (currentPlayerId === players.length - 1) {
       setCurrentPlayerId(0);
     } else {
       setCurrentPlayerId(currentPlayerId + 1);
     }
+
+    // Si un joueur à fini, on passe au joueur suivant
+    if (players[currentPlayerId].position >= questions.length) {
+      console.log("joueur fini")
+    }
     
-    setQuestionVisible(false)
-    
+    setQuestionVisible(false)    
   };
 
   const getAPI = async () => {
